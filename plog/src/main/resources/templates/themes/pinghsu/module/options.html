@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:thSys="">
+<head>
+<meta charset="UTF-8">
+<title>pinghsu主题设置</title>
+<link rel="stylesheet" type="text/css"
+	href="/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/plugins/vali/css/main.css">
+<link rel="stylesheet" type="text/css"
+	href="/plugins/toast/jquery.toast.css">
+</head>
+<body>
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-lg-6 mt-3">
+				<img alt="" class="img-thumbnail img-fluid"
+					th:src="${theme.themeImg}">
+			</div>
+
+	</div>
+	<script type="text/javascript"
+		src="/plugins/vali/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="/plugins/vali/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="/plugins/vali/js/plugins/pace.min.js"></script>
+	<script type="text/javascript" src="/js/plog.js"></script>
+	<script type="text/javascript" src="/plugins/toast/jquery.toast.js"></script>
+	<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
+	<script type="text/javascript">
+	//保存设置项
+	 function save(id){
+		var from =$("#"+id).serialize();
+		$.ajax({
+			type:"post",
+			async: false,
+			url:"/admin/option/save",
+			data:from,
+			dataType:"json",
+			success:function(data){
+				showMsg(data.msg,"success",3000)
+			}
+		});
+	}
+	</script>
+</body>
+</html>

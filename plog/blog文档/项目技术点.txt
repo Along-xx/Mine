@@ -1,0 +1,13 @@
+数据库连接池：druid
+前端模板：https://github.com/chakhsu/pinghsu
+前端弹窗插件：https://layer.layui.com/
+前端消息提示框插件：【jquery toast】http://www.jq22.com/jquery-info15566
+后端模板：https://github.com/pratikborsadiya/vali-admin
+表单验证插件：http://bootstrapvalidator.com/
+后端工具包：https://www.hutool.cn/
+分页插件：https://github.com/pagehelper/Mybatis-PageHelper
+内存缓存：http://www.ehcache.org/
+评论插件：https://gitalk.github.io/
+markdown编辑器：https://github.com/sparksuite/simplemde-markdown-editor
+md编辑器语法高亮插件：https://github.com/highlightjs/highlight.js
+图标库：http://www.fontawesome.com.cn/

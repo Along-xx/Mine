@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:thSys="">
+<div th:replace="admin/module/macros :: head('主题管理')"></div>
+<body class="app sidebar-mini rtl">
+	<main class="app-content">
+	<div th:replace="admin/module/macros :: header"></div>
+	<div th:replace="admin/module/macros :: sidebar"></div>
+	<div class="app-title">
+		<div>
+			<h1>
+				社交链接
+			</h1>
+		</div>
+		<ul class="app-breadcrumb breadcrumb">
+			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+<!--			<li class="breadcrumb-item"><a href="#">主题管理</a></li>-->
+			<li class="breadcrumb-item">社交链接</li>
+		</ul>
+	</div>
+	<div class="row">
+
+		<div class="col-lg-12 mt-3" >
+			<div class="bs-component tile">
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item"><a class="nav-link active"
+											data-toggle="tab" href="#sns">社交资料</a></li>
+<!--					<li class="nav-item"><a class="nav-link" data-toggle="tab"-->
+<!--											href="#about">关于</a></li>-->
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content col-lg-6">
+					<div id="sns" class="container tab-pane active">
+						<form class="form-horizontal" id="snsOptions">
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">RSS：</label>
+								<div class="col-md-8 mt-2">
+									<label> <input type="radio" th:value="rss_open"
+												   name="pinghsu_rss"
+												   th:checked="${options['pinghsu_rss'] == 'rss_open'}" checked="checked"/><span
+											class="label-text font-weight-bold">显示</span>
+									</label> <label><input type="radio" th:value="rss_close"
+														   name="pinghsu_rss"
+														   th:checked="${options['pinghsu_rss'] == 'rss_close'}"
+								/><span class="label-text font-weight-bold">隐藏</span>
+								</label>
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">Weibo：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_weibo']}" name="pinghsu_weibo">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">GitHub：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_github']}" name="pinghsu_github">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">Zhihu：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_zhihu']}" name="pinghsu_zhihu">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">Twitter：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_twitter']}" name="pinghsu_twitter">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">QQ：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_qq']}" name="pinghsu_qq">
+								</div>
+							</div>
+							<div class="form-group row mt-3">
+								<label class="col-form-label col-md-4 font-weight-bold">Email：</label>
+								<div class="col-md-8">
+									<input class="form-control" type="text" th:value="${options['pinghsu_email']}" name="pinghsu_email">
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-md-8 offset-md-10 ml-auto">
+									<button class="btn btn-outline-primary float-right" type="button" onclick="save('snsOptions')">
+										<i class="fa fa-fw fa-lg fa-check-circle"></i>保存设置
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+<!--					<div id="about" class="tab-pane fade">-->
+<!--						<div class="list-group">-->
+<!--							<a class="list-group-item list-group-item-action" target="_blank" href="https://www.linpx.com/">作者主页</a>-->
+<!--							<a class="list-group-item list-group-item-action" target="_blank" href="https://github.com/chakhsu/pinghsu">原主题地址</a>-->
+<!--						</div>-->
+<!--					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+	<div th:replace="admin/module/macros :: remove"></div> 
+	<div th:replace="admin/module/macros :: comm"></div>
+	<div th:replace="admin/module/macros :: bootstrapValidator"></div>
+	<script type="text/javascript" src="/static/plugins/layer/layer.js"></script>
+	 <script type="text/javascript">
+	 //保存设置项
+	 function save(id){
+		 var from =$("#"+id).serialize();
+		 $.ajax({
+			 type:"post",
+			 async: false,
+			 url:"/admin/option/save",
+			 data:from,
+			 dataType:"json",
+			 success:function(data){
+				 showMsg(data.msg,"success",3000)
+			 }
+		 });
+	 }
+	 $(function(){
+		 $("#themeForm").bootstrapValidator({
+				message: 'This value is not valid',
+	           　		feedbackIcons: {
+	               　　　　　　　　valid: 'glyphicon glyphicon-ok',
+	               　　　　　　　　invalid: 'glyphicon glyphicon-remove',
+	               　　　　　　　　validating: 'glyphicon glyphicon-refresh'
+	           　　　　　　　　   },
+	            fields: {
+	            	themeName: {
+	                   message: '主题名称验证失败',
+	                   validators: {
+	                       notEmpty: {
+	                           message: '主题名称不能为空'
+	                       }
+	                   }
+	               }
+	           }
+			}); 
+	 });
+	 //保存主题
+	 function saveTheme(){
+		 var width=500;
+		 var height=300;
+		//如果是移动端，就使用自适应大小弹窗
+     	if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+     	    width = 'auto';
+     	    height = 'auto';
+     	}
+		 layer.open({
+			 type : 1,
+			 title : '新增主题',
+			 anim : 2,
+			 maxmin : true,
+			 area: [width + 'px', height + 'px'],
+			 content: $('#saveTheme'),
+			 btn: ['保存', '取消'],
+			 yes: function(index, layero){
+			 var bootstrapValidator = $("#themeForm").data("bootstrapValidator");
+			 bootstrapValidator.validate();
+			 if(bootstrapValidator.isValid()){
+				 var obj=$("#themeForm").serialize();
+				 $.ajax({
+					type :"post",
+					async :false,
+					url :"/admin/theme/saveTheme",
+					data :obj,
+					dataType :"json",
+					success :function(data){
+						if(data.flag==true){
+							 layer.close(index); 
+							 window.location.href = "/admin/theme"; 
+						}else{
+							 layer.alert(data.msg);
+						}
+					}
+				 });
+				}
+			 },
+     	     cancel: function(index) {
+    	        return true;
+    	     }
+		});
+	 }
+	function showModel(id) {
+		$("#themeId").val(id);
+		$("#removeModal").modal();
+	}
+	function remove(){
+		window.location.href = "/admin/theme/remove?id="
+			+ $("#themeId").val();
+	}
+	
+	//设置项
+	function themeOption(themeName) {
+		layer.open({
+			type : 2,
+			title : themeName+'主题设置',
+			anim : 2,
+			area : [ '90%', '90%' ],
+			shadeClose : true,
+			content : "/admin/theme/"+themeName+"?themeName=" + themeName,
+			maxmin : true
+		});
+	} 
+	//启用主题
+	function themeEnabled(id){
+		$.ajax({
+			type :"post",
+			url :"/admin/theme/themeEnabled",
+			data :{"id":id},
+			dataType :"json",
+			success :function(data){
+				 if(data.flag==true){
+					 $.toast({
+                         text: data.msg,
+                         heading: '提示',
+                         icon: 'success',
+                         showHideTransition: 'fade',
+                         allowToastClose: true,
+                         hideAfter: 1000,
+                         stack: 1,
+                         position: 'top-center',
+                         textAlign: 'left',
+                         loader: true,
+                         loaderBg: '#ffffff',
+                         afterHidden: function () {
+                        	 location.reload();
+                         }
+                     });
+				}else{
+					showMsg(data.msg,"error",3000);
+				} 
+			}
+		})		 
+	}
+	</script>
+	<div class="col" id="saveTheme" style="display: none;">
+		<div class="row">
+			<div class="col-md-12">
+				<form id="themeForm">
+					<div class="form-group row mt-3">
+						<label class="control-label col-md-4">主题名称：</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="themeName">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="control-label col-md-4">主题描述：</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="themeDescribe">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="control-label col-md-4">主题预览图：</label>
+						<div class="col-md-8">
+							<input class="form-control" type="text" name="themeImg">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

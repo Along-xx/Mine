@@ -12,3 +12,4 @@ markdown编辑器：https://github.com/sparksuite/simplemde-markdown-editor
 md编辑器语法高亮插件：https://github.com/highlightjs/highlight.js
 图标库：http://www.fontawesome.com.cn/
 新增技术栈：github
+新增技术栈：gitee.com
